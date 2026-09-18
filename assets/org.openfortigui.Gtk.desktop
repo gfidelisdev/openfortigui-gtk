@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Openfortigui GTK
+Comment=Versão em GTK do aplicativo Openfortigui
+Exec=/opt/openfortigui-gtk/openfortigui-gtk
+Icon=/opt/openfortigui-gtk/icon.svg
+Terminal=false
+Categories=Utility;VPN;Network;Security
+StartupWMClass=org.openfortigui.Gtk
+StartupNotify=true

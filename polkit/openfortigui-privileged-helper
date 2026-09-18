@@ -1,0 +1,63 @@
+#!/bin/sh
+# Privileged helper for openfortigui-gtk. Meant to run exclusively via
+# `pkexec` under the com.openfortigui.vpnhelper polkit action (see the
+# .policy file in this directory) -- do not run it directly, and do not
+# grant it broader sudoers/polkit rights than that single action.
+set -eu
+
+OPENFORTIVPN_BIN="$(command -v openfortivpn || echo /usr/sbin/openfortivpn)"
+
+usage() {
+    echo "usage: $0 {check|start <config-file>|stop <pid>}" >&2
+    exit 64
+}
+
+cmd_check() {
+    # No-op: only used to warm up / renew the polkit auth_admin_keep session.
+    exit 0
+}
+
+cmd_start() {
+    config="${1:-}"
+    if [ -z "$config" ]; then
+        usage
+    fi
+    # Only accept configs written by openfortigui-gtk itself in its own
+    # runtime directory, never an arbitrary caller-supplied path.
+    case "$config" in
+        /run/user/*/openfortigui-gtk/openfortivpn-*.conf|/tmp/openfortigui-gtk/openfortivpn-*.conf)
+            ;;
+        *)
+            echo "refusing to use config outside the expected runtime directory: $config" >&2
+            exit 1
+            ;;
+    esac
+    if [ ! -f "$config" ]; then
+        echo "config file not found: $config" >&2
+        exit 1
+    fi
+    exec "$OPENFORTIVPN_BIN" -c "$config"
+}
+
+cmd_stop() {
+    pid="${1:-}"
+    case "$pid" in
+        ''|*[!0-9]*)
+            echo "invalid pid: $pid" >&2
+            exit 1
+            ;;
+    esac
+    comm="$(cat "/proc/$pid/comm" 2>/dev/null || true)"
+    if [ "$comm" != "openfortivpn" ]; then
+        echo "refusing to signal pid $pid (not an openfortivpn process)" >&2
+        exit 1
+    fi
+    exec kill -TERM "$pid"
+}
+
+case "${1:-}" in
+    check) cmd_check ;;
+    start) shift; cmd_start "$@" ;;
+    stop) shift; cmd_stop "$@" ;;
+    *) usage ;;
+esac

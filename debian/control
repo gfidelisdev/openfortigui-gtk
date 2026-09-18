@@ -1,0 +1,29 @@
+Source: openfortigui-gtk
+Section: net
+Priority: optional
+Maintainer: Rene Hadler <rene@hadler.me>
+Build-Depends: debhelper-compat (= 13),
+               cargo,
+               rustc,
+               pkg-config,
+               libgtk-4-dev,
+               libadwaita-1-dev
+Standards-Version: 4.7.0
+Rules-Requires-Root: no
+Homepage: https://github.com/theinvisible/openfortigui
+Vcs-Browser: https://github.com/theinvisible/openfortigui
+Vcs-Git: https://github.com/theinvisible/openfortigui.git
+
+Package: openfortigui-gtk
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         openfortivpn,
+         policykit-1
+Description: GTK frontend for openfortivpn, a Fortinet SSL-VPN client
+ openfortiGUI GTK is an independent Rust/GTK4 + libadwaita frontend for
+ managing Fortinet SSL-VPN profiles with openfortivpn.
+ .
+ Root privileges for starting/stopping the tunnel are obtained through a
+ dedicated PolicyKit action (auth_admin_keep), so the password is only asked
+ once per desktop session instead of on every connect/disconnect.

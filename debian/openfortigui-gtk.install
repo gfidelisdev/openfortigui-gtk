@@ -1,0 +1,5 @@
+target/release/openfortigui-gtk opt/openfortigui-gtk/
+assets/icon.svg opt/openfortigui-gtk/
+assets/org.openfortigui.Gtk.desktop usr/share/applications/
+polkit/openfortigui-privileged-helper usr/lib/openfortigui-gtk/
+polkit/com.openfortigui.vpnhelper.policy usr/share/polkit-1/actions/

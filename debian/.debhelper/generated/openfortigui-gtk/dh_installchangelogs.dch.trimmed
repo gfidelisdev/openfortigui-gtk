@@ -1,0 +1,6 @@
+openfortigui-gtk (0.1.0-1) unstable; urgency=low
+
+  * Initial packaging: SRP module split, PolicyKit-based root auth
+    (auth_admin_keep) and /opt install layout.
+
+ -- Rene Hadler <rene@hadler.me>  Fri, 18 Sep 2026 00:00:00 +0200

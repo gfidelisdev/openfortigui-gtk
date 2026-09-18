@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3584e4"/>
+      <stop offset="100%" stop-color="#1c71d8"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.1"/>
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Base arredondada estilo GNOME -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#bgGrad)" filter="url(#dropShadow)"/>
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="url(#shieldGrad)"/>
+
+  <!-- Linhas de conexão VPN / Rede -->
+  <path d="M 64 34 L 38 78 M 64 34 L 90 78 M 38 78 L 90 78" 
+        stroke="#ffffff" stroke-opacity="0.35" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Nós de rede secundários -->
+  <circle cx="38" cy="78" r="6" fill="#62a0ea"/>
+  <circle cx="90" cy="78" r="6" fill="#62a0ea"/>
+
+  <!-- Nó central / Cadeado -->
+  <g filter="url(#dropShadow)">
+    <!-- Haste do cadeado -->
+    <path d="M 54 50 L 54 42 C 54 35 74 35 74 42 L 74 50" 
+          fill="none" stroke="#f6f5f4" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Corpo do cadeado -->
+    <rect x="46" y="50" width="36" height="28" rx="6" fill="#f6f5f4"/>
+    <!-- Fechadura -->
+    <circle cx="64" cy="62" r="3" fill="#1c71d8"/>
+    <path d="M 64 63 L 64 69" stroke="#1c71d8" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Indicador Fortinet/Status (Ponto frontal) -->
+  <circle cx="64" cy="94" r="5" fill="#2ec27e"/>
+</svg>

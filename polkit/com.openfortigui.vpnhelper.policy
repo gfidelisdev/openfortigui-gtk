@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>OpenFortiGUI</vendor>
+  <vendor_url>https://github.com/openfortigui/openfortigui</vendor_url>
+
+  <action id="com.openfortigui.vpnhelper">
+    <description>Manage the OpenFortiGUI VPN tunnel</description>
+    <message>Authentication is required to start or stop the OpenFortiGUI VPN tunnel</message>
+    <icon_name>network-vpn</icon_name>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <!--
+      pkexec matches this action by resolving the full path of the invoked
+      command against this annotation, so `pkexec
+      /usr/lib/openfortigui-gtk/openfortigui-privileged-helper ...` uses this
+      action (and its auth_admin_keep session cache) instead of the generic,
+      non-cached org.freedesktop.policykit.pkexec.run-program action.
+    -->
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/openfortigui-gtk/openfortigui-privileged-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+</policyconfig>
